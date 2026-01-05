@@ -1,0 +1,215 @@
+﻿/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* BODY */
+body {
+    background: #f4f6f8;
+}
+
+/* ==================== NAVBAR ==================== */
+.navbar {
+    height: 60px;
+    background: #111827;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+}
+
+/* LEFT */
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.app-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+/* CENTER */
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* PUBLISH BUTTON */
+.btn-post {
+    background: linear-gradient(200deg, #ff2929, #0ea5e9);
+    color: #292b26;
+    padding: 1px 200px;
+    border-radius: 114px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 2.3s;
+}
+
+    .btn-post:hover {
+        background: #0ea5e9;
+        transform: scale(1.05);
+    }
+
+/* RIGHT */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
+    background: #38bdf8;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* LOGOUT BUTTON */
+.btn-logout {
+    background: #ef4444;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 114px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .btn-logout:hover {
+        background: #dc2626;
+        transform: scale(1.05);
+    }
+
+/* ==================== FEED ==================== */
+.feed {
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+/* ==================== POST CARD ==================== */
+.post {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    transition: 0.3s;
+}
+
+    .post:hover {
+        transform: translateY(-3px);
+    }
+
+/* POST HEADER */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.author {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.date {
+    color: gray;
+    font-size: 14px;
+}
+
+/* POST CONTENT */
+.post-content {
+    margin: 15px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* POST IMAGE */
+.post-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+/* ==================== ACTIONS ==================== */
+.post-actions {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+    .post-actions a {
+        text-decoration: none;
+        font-weight: bold;
+        background: #e5e7eb;
+        padding: 6px 14px;
+        border-radius: 8px;
+        color: black;
+        transition: 0.3s;
+    }
+
+        .post-actions a:hover {
+            background: #38bdf8;
+        }
+
+/* ==================== COMMENTS ==================== */
+.comments {
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.comment {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+    .comment strong {
+        margin-right: 4px;
+    }
+
+/* COMMENT INPUT */
+.comments input {
+    width: 100%;
+    padding: 9px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    outline: none;
+}
+
+    .comments input:focus {
+        border-color: #38bdf8;
+    }
+
+.user-name {
+    background: #38bdf8;
+    color: #000;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none; /* 🔥 important */
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+    .user-name:hover {
+        background: #0ea5e9;
+        transform: scale(1.05);
+    }

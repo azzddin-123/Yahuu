@@ -1,0 +1,181 @@
+﻿@model List<User>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Yahuu | Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/admin-dashboard.css" />
+</head>
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="~/images/Yahuu.png" alt="Yahuu Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li class="@(ViewBag.Section == "users" ? "active" : "")">
+                    <a asp-action="Dashboard" asp-route-section="users">Utilisateurs</a>
+                </li>
+                <li class="@(ViewBag.Section == "posts" ? "active" : "")">
+                    <a asp-action="Dashboard" asp-route-section="posts">Posts</a>
+                </li>
+                <li class="@(ViewBag.Section == "comments" ? "active" : "")">
+                    <a asp-action="Dashboard" asp-route-section="comments">Commentaires</a>
+                </li>
+                <li>
+                    <a asp-controller="Account" asp-action="Logout">Déconnexion</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="content">
+
+            <!-- HEADER -->
+            <header class="topbar">
+                <h1>Admin Dashboard</h1>
+                <span class="admin-name">@ViewBag.AdminName</span>
+            </header>
+
+            <!-- STATS -->
+            <section class="stats">
+                <div class="card">
+                    <h3>Utilisateurs</h3>
+                    <p>@ViewBag.UsersCount</p>
+                </div>
+
+                <div class="card">
+                    <h3>Posts</h3>
+                    <p>@ViewBag.PostsCount</p>
+                </div>
+
+                <div class="card">
+                    <h3>Commentaires</h3>
+                    <p>@ViewBag.CommentsCount</p>
+                </div>
+
+                <div class="card danger">
+                    <h3>Utilisateurs bloqués</h3>
+                    <p>@ViewBag.BlockedUsersCount</p>
+                </div>
+            </section>
+
+
+            <!-- TABLE USERS -->
+            @if (ViewBag.Section == "users")
+            {
+                <section class="table-section">
+                    <h2>Gestion des utilisateurs</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Statut</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var u in Model)
+                            {
+                                <tr>
+                                    <td>@u.Nom</td>
+                                    <td>@u.Email</td>
+                                    <td class="@(u.IsBlocked ? "blocked" : "active")">
+                                        @(u.IsBlocked ? "Bloqué" : "Actif")
+                                    </td>
+                                    <td>
+                                        @if (u.IsBlocked)
+                                        {
+                                            <a class="btn unblock" asp-action="Unblock" asp-route-id="@u.Id">Débloquer</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn block" asp-action="Block" asp-route-id="@u.Id">Bloquer</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            }
+            <!-- TABLE POST -->
+            @if (ViewBag.Section == "posts")
+            {
+                <section class="table-section">
+                    <h2>Gestion des posts</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Contenu</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in ViewBag.Posts)
+                            {
+                                <tr>
+                                    <td>@p.User.Nom</td>
+                                    <td>@p.Content</td>
+                                    <td>@p.CreatedAt.ToShortDateString()</td>
+                                    <td>
+                                        <a class="btn delete"
+                                           asp-action="DeletePost"
+                                           asp-route-id="@p.Id"
+                                           onclick="return confirm('Supprimer ce post ?')">
+                                            Supprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            }
+            <!-- TABLE COMMENTAIRE -->
+            @if (ViewBag.Section == "comments")
+            {
+                <section class="table-section">
+                    <h2>Gestion des commentaires</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Commentaire</th>
+                                <th>Post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var c in ViewBag.Comments)
+                            {
+                                <tr>
+                                    <td>@c.User.Nom</td>
+                                    <td>@c.Content</td>
+                                    <td>@c.Post.Id</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            }
+
+        </main>
+
+    </div>
+
+</body>
+</html>

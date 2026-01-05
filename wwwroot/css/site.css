@@ -1,0 +1,12 @@
+/* Background global */
+.app-bg {
+    min-height: 100vh;
+    background: linear-gradient( rgb(0, 0, 0, 0), rgb(0, 0, 0) ), url('/images/background.avif') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Pour éviter les marges */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}

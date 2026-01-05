@@ -1,0 +1,39 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Modifier profil";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/profile.css" />
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <!-- IMAGE FIXE -->
+        <div class="profile-image">
+            <img src="~/images/user-avatar.png">
+        </div>
+
+        <!-- FORM -->
+        <div class="profile-info">
+
+            <h2>Modifier le nom</h2>
+
+            <form method="post">
+                <input type="text"
+                       name="nom"
+                       value="@Model.Nom"
+                       required
+                       style="padding:10px;width:100%;border-radius:8px;border:1px solid #ccc;margin-bottom:20px" />
+
+                <button type="submit" class="edit-btn">
+                    💾 Sauvegarder
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

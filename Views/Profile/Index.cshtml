@@ -1,0 +1,109 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Profil";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/profile.css" />
+
+<header class="navbar">
+    <div class="nav-left">
+        <span class="app-name">Yahuu</span>
+    </div>
+
+    <div class="nav-right">
+        <a href="/Home/Index" class="btn-post">Accueil</a>
+        <a href="/Account/Logout" class="btn-logout">Déconnexion</a>
+    </div>
+</header>
+
+<!-- ==================== PROFILE CARD ==================== -->
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <!-- IMAGE FIXE -->
+        <div class="profile-image">
+            <img src="~/images/user-avatar.png" alt="Profile Image">
+        </div>
+
+        <!-- INFO -->
+        <div class="profile-info">
+
+            <h2>@Model.Nom</h2>
+            <p class="email">@Model.Email</p>
+
+            <!-- STATS -->
+            <div class="stats">
+                <div>
+                    <strong>@Model.Posts.Count</strong>
+                    <span>Posts</span>
+                </div>
+                <div>
+                    <strong>@Model.Comments.Count</strong>
+                    <span>Commentaires</span>
+                </div>
+                <div>
+                    <strong>@Model.Likes.Count</strong>
+                    <span>Likes</span>
+                </div>
+            </div>
+
+            <!-- EDIT BUTTON -->
+            <a href="/Profile/Edit" class="edit-btn">
+                ✏️ Modifier le profil
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==================== USER POSTS ==================== -->
+<section class="profile-posts">
+
+    <h3 class="section-title">Publications</h3>
+
+    @foreach (var post in Model.Posts.OrderByDescending(p => p.CreatedAt))
+    {
+        <div class="profile-post">
+
+            <!-- HEADER -->
+            <div class="post-top">
+                <div class="post-author">
+                    <img src="~/images/user-avatar.png" class="mini-avatar" />
+                    <span>@Model.Nom</span>
+                </div>
+                <span class="post-date">
+                    @post.CreatedAt.ToString("dd MMM yyyy · HH:mm")
+                </span>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="post-text">
+                @post.Content
+            </div>
+
+            <!-- IMAGE -->
+            @if (!string.IsNullOrEmpty(post.Image))
+            {
+                <img src="~/uploads/@post.Image" class="profile-post-image" />
+            }
+
+            <!-- ACTIONS -->
+            <div class="post-footer">
+                <a href="/Post/Like/@post.Id" class="post-action">
+                    ❤️ @post.Likes.Count
+                </a>
+
+                <span class="post-action">
+                    💬 @post.Comments.Count
+                </span>
+            </div>
+
+        </div>
+    }
+
+</section>
+

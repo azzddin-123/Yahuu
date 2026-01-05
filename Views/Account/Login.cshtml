@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Authentification";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Yahuu | Auth</title>
+    <link rel="stylesheet" href="~/css/auth.css">
+</head>
+<body>
+
+    <div class="auth-container">
+
+        <!-- LEFT -->
+        <div class="auth-left">
+            <img src="~/images/Yahuu.png" alt="Yahuu Logo" class="logo">
+            <h1>Bienvenue sur <span>Yahuu</span></h1>
+            <p>Connexion ou inscription pour accéder à votre espace</p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="auth-right">
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button type="button" id="loginTab" class="active">Connexion</button>
+                <button type="button" id="registerTab">Inscription</button>
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <p style="color:red;text-align:center">@ViewBag.Error</p>
+            }
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" method="post" asp-action="Login">
+                <h2>Connexion</h2>
+
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Mot de passe" required>
+
+                <button type="submit">Se connecter</button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" class="hidden" method="post" asp-action="Register">
+                <h2>Inscription</h2>
+
+                <input type="text" name="nom" placeholder="Nom complet" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Mot de passe" required>
+
+                <button type="submit">S’inscrire</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+        const loginTab = document.getElementById("loginTab");
+        const registerTab = document.getElementById("registerTab");
+        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
+
+        loginTab.onclick = () => {
+            loginTab.classList.add("active");
+            registerTab.classList.remove("active");
+            loginForm.classList.remove("hidden");
+            registerForm.classList.add("hidden");
+        };
+
+        registerTab.onclick = () => {
+            registerTab.classList.add("active");
+            loginTab.classList.remove("active");
+            registerForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+        };
+    </script>
+
+</body>
+</html>

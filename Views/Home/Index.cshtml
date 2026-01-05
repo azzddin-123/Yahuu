@@ -1,0 +1,92 @@
+﻿@model List<Post>
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Accueil";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Yahuu | Accueil</title>
+    <link rel="stylesheet" href="~/css/user-home.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <header class="navbar">
+
+        <!-- LEFT -->
+        <div class="nav-left">
+            <img src="~/images/Yahuu.png" class="logo" />
+            <span class="app-name">Yahuu</span>
+        </div>
+
+        <!-- CENTER -->
+        <div class="nav-center">
+            <a href="/Post/Create" class="btn-post">➕ Publier un post</a>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="nav-right">
+            <a href="/Profile/Index" class="user-name">
+                @Context.Session.GetString("UserName")
+            </a>
+            <a href="/Account/Logout" class="btn-logout">Déconnexion</a>
+        </div>
+
+    </header>
+
+    <!-- ==================== FEED ==================== -->
+    <main class="feed">
+
+        @foreach (var post in Model)
+        {
+            <div class="post">
+
+                <!-- HEADER -->
+                <div class="post-header">
+                    <span class="author">@post.User.Nom</span>
+                    <span class="date">@post.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="post-content">
+                    @post.Content
+                </div>
+
+                <!-- IMAGE -->
+                @if (!string.IsNullOrEmpty(post.Image))
+                {
+                    <img src="~/uploads/@post.Image" class="post-image" />
+                }
+
+                <!-- ACTIONS -->
+                <div class="post-actions">
+                    <a href="/Post/Like/@post.Id">❤️ @post.Likes.Count</a>
+                </div>
+
+                <!-- COMMENTS -->
+                <div class="comments">
+                    @foreach (var c in post.Comments)
+                    {
+                        <div class="comment">
+                            <strong>@c.User.Nom</strong> : @c.Content
+                        </div>
+                    }
+
+                    <form method="post" action="/Post/AddComment">
+                        <input type="hidden" name="PostId" value="@post.Id" />
+                        <input type="text" name="Content" placeholder="Ajouter un commentaire..." required />
+                    </form>
+                </div>
+
+            </div>
+        }
+
+    </main>
+
+</body>
+</html>
